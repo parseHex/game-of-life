@@ -23,7 +23,9 @@ function rowMax(cellId, rowSize) {
 const Board = React.createClass({
   propTypes: {
     boardSize: React.PropTypes.array,
-    boardRules: React.PropTypes.object
+    boardRules: React.PropTypes.object,
+    time: React.PropTypes.number,
+    paused: React.PropTypes.bool
   },
   getInitialState: function() {
     let rowSize = this.props.boardSize[0];
@@ -71,7 +73,28 @@ const Board = React.createClass({
 
       state[i] = (cellState);
     }
+    this.setupTimer();
+
     return state;
+  },
+  setupTimer: function() {
+    var timeCount = 0;
+    var thisRef = this;
+    var start = new Date().getTime()
+    setInterval(function() {
+      let time = new Date().getTime() - start;
+      timeCount += time;
+
+      if (thisRef.props.paused || timeCount < thisRef.props.speed) return;
+      timeCount = 0; // will run this time, reset back to zero
+
+      thisRef.processCells();
+    }, 100);
+  },
+  handleMouseDown: function(event) {
+    if (event.button !== 0) return;
+
+    this.setState({clicking: true});
   },
 
   },

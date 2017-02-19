@@ -1,0 +1,14 @@
+.cell {
+  border: 1px solid;
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.cell.alive {
+  background-color: yellow;
+}
+.row {
+  height: 15px;
+  font-size: 0; /* removes whitespace between each cell */
+}

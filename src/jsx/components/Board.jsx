@@ -95,13 +95,15 @@ const Board = React.createClass({
 
     this.setState(cells);
   },
+  killCells: function(cellIds) {
+    var cells = this.state;
 
-    cells[cellId - 1].alive = !cells[cellId - 1].alive;
+    cellIds.forEach(function(cellId) {
+      cells[cellId].alive = false;
+    });
 
-    this.setState({cells: cells});
+    this.setState(cells);
   },
-  shouldCellDie: function(cellId) {
-    //
   },
   render: function() {
     let rowSize = this.props.boardSize[0];

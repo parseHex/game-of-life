@@ -11,7 +11,8 @@ function overflow(number, min, max) {
 
 const Board = React.createClass({
   propTypes: {
-    boardSize: React.PropTypes.array
+    boardSize: React.PropTypes.array,
+    boardRules: React.PropTypes.object
   },
   getInitialState: function() {
     let rowSize = this.props.boardSize[0];
@@ -55,6 +56,9 @@ const Board = React.createClass({
     cells[cellId - 1].alive = !cells[cellId - 1].alive;
 
     this.setState({cells: cells});
+  },
+  shouldCellDie: function(cellId) {
+    //
   },
   render: function() {
     let rowSize = this.props.boardSize[0];

@@ -2,6 +2,7 @@ const React = require('react');
 
 const Cell = require('./Cell.jsx');
 
+var clicking = false;
 
 function overflow(number, min, max, resolver) {
   if (number >= min && number <= max) return number;
@@ -75,6 +76,8 @@ const Board = React.createClass({
     }
     this.setupTimer();
 
+    state.clicking = false;
+
     return state;
   },
   setupTimer: function() {
@@ -96,7 +99,24 @@ const Board = React.createClass({
 
     this.setState({clicking: true});
   },
+  handleMouseUp: function(event) {
+    if (event.button !== 0) return;
 
+    this.setState({clicking: false});
+  },
+  handleHover: function(event) {
+    let cellId = event.target.id.substr(4);
+    console.log('hover');
+    if (!this.state.clicking) return;
+
+    let cell = this.state[cellId];
+
+    cell.alive = !cell.alive;
+
+    let newState = {};
+    newState[cellId] = cell;
+
+    this.setState(newState);
   },
   handleClick: function(event) {
     let cellId = event.target.id.substr(4);
@@ -173,6 +193,7 @@ const Board = React.createClass({
                 alive={this.state[cellId].alive}
                 id={'cell' + cellId}
                 onClick={this.handleClick}
+                onHover={this.handleHover}
           />
         );
       }
@@ -187,7 +208,7 @@ const Board = React.createClass({
     }
 
     return (
-      <div>
+      <div onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp}>
         {rows}
       </div>
     );

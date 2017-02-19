@@ -4,14 +4,15 @@ const Cell = React.createClass({
   propTypes: {
     alive: React.PropTypes.bool,
     onClick: React.PropTypes.func,
-    id: React.PropTypes.string
+    id: React.PropTypes.string,
+    onHover: React.PropTypes.func
   },
   render: function() {
     return (
       <div className={'cell' + (this.props.alive ? ' alive' : '')}
            onClick={this.props.onClick}
-           id={this.props.id}
-      />
+           onMouseEnter={this.props.onHover}
+           id={this.props.id} />
     );
   }
 });

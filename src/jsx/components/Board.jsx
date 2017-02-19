@@ -2,11 +2,22 @@ const React = require('react');
 
 const Cell = require('./Cell.jsx');
 
-function overflow(number, min, max) {
-  if (number >= 0 && number <= max) return number;
 
-  if (number < 0) return number + max;
-  if (number > max) return number - max;
+function overflow(number, min, max, resolver) {
+  if (number >= min && number <= max) return number;
+
+  if (number < min) return number + resolver;
+  if (number > max) return number - resolver;
+}
+
+function rowMax(cellId, rowSize) {
+  if (cellId % rowSize === 0) {
+    return cellId;
+  } else {
+    for (let i = cellId + 1; i < cellId + rowSize + 1; i++) {
+      if (i % rowSize === 0) return i;
+    }
+  }
 }
 
 const Board = React.createClass({
@@ -18,8 +29,8 @@ const Board = React.createClass({
     let rowSize = this.props.boardSize[0];
     let columnSize = this.props.boardSize[1];
 
-    let numCells = this.props.boardSize[0] * this.props.boardSize[1];
-    let cellStates = [];
+    let numCells = rowSize * columnSize;
+    let state = {};
 
     for (let i = 1; i <= numCells; i++) {
       let cellState = {
@@ -27,31 +38,54 @@ const Board = React.createClass({
         neighbors: []
       };
 
-      function addNeighbor(cellId) {
-        cellState.neighbors.push(overflow(cellId, rowSize, columnSize));
-      }
+      let topMiddle = overflow(i - rowSize, 1, numCells, numCells);
 
-      addNeighbor(i - (rowSize + 1)); // top-left neighbor
-      addNeighbor(i - rowSize); // top-middle neighbor
-      addNeighbor(i - (rowSize - 1)); // top-right neighbor
+      let topMaxSize = rowMax(topMiddle, rowSize);
+      let topMinSize = topMaxSize - (rowSize - 1);
 
-      addNeighbor(i - 1); // left neighbor
-      addNeighbor(i + 1); // right neighbor
+      let topLeft = overflow(topMiddle - 1, topMinSize, topMaxSize, rowSize);
+      let topRight = overflow(topMiddle + 1, topMinSize, topMaxSize, rowSize);
 
-      addNeighbor(i + (rowSize - 1)); // bottom-left neighbor
-      addNeighbor(i + rowSize); // bottom-middle neighbor
-      addNeighbor(i + (rowSize + 1)); // bottom-right neighbor
+      let thisMaxSize = rowMax(i, rowSize);
+      let thisMinSize = thisMaxSize - (rowSize - 1);
 
-      cellStates.push(cellState);
+      let left = overflow(i - 1, thisMinSize, thisMaxSize, rowSize);
+      let right = overflow(i + 1, thisMinSize, thisMaxSize, rowSize);
+
+      let bottomMiddle = overflow(i + rowSize, 1, numCells, numCells);
+
+      let bottomMaxSize = rowMax(bottomMiddle, rowSize);
+      let bottomMinSize = bottomMaxSize - (rowSize - 1);
+
+      let bottomLeft = overflow(bottomMiddle - 1, bottomMinSize, bottomMaxSize, rowSize);
+      let bottomRight = overflow(bottomMiddle + 1, bottomMinSize, bottomMaxSize, rowSize);
+
+      cellState.neighbors.push(topLeft);
+      cellState.neighbors.push(topMiddle);
+      cellState.neighbors.push(topRight);
+      cellState.neighbors.push(left);
+      cellState.neighbors.push(right);
+      cellState.neighbors.push(bottomLeft);
+      cellState.neighbors.push(bottomMiddle);
+      cellState.neighbors.push(bottomRight);
+
+      state[i] = (cellState);
     }
+    return state;
+  },
 
-    return {
-      cells: cellStates
-    };
   },
   handleClick: function(event) {
     let cellId = event.target.id.substr(4);
-    let cells = this.state.cells;
+    let cell = this.state[cellId];
+
+    cell.alive = !cell.alive;
+
+    let newState = {};
+    newState[cellId] = cell;
+
+    this.setState(newState);
+  },
 
     cells[cellId - 1].alive = !cells[cellId - 1].alive;
 
@@ -73,7 +107,7 @@ const Board = React.createClass({
       for (let j = 1; j <= rowSize; j++, cellId++) {
         cells.push(
           <Cell key={cellId}
-                alive={this.state.cells[cellId - 1].alive}
+                alive={this.state[cellId].alive}
                 id={'cell' + cellId}
                 onClick={this.handleClick}
           />

@@ -6,13 +6,20 @@ const Board = require('./components/Board.jsx');
 const App = React.createClass({
   getInitialState: function() {
     return {
-      boardSize: [50, 25]
+      boardSize: [50, 25],
+      boardRules: {
+        numsToSpawn: [3],
+        numsToSurvive: [2, 3],
+        numsToDie: [0, 1, 4, 5, 6, 7, 8]
+      }
     };
   },
   render: function() {
     return (
       <div>
-        <Board boardSize={this.state.boardSize} />
+        <Board boardSize={this.state.boardSize}
+               boardRules={this.state.boardRules}
+        />
       </div>
     );
   }

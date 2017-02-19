@@ -10,7 +10,8 @@ const Cell = React.createClass({
     return (
       <div className={'cell' + (this.props.alive ? ' alive' : '')}
            onClick={this.props.onClick}
-           id={this.props.id} />
+           id={this.props.id}
+      />
     );
   }
 });

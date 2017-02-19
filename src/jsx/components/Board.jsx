@@ -71,7 +71,8 @@ const Board = React.createClass({
           <Cell key={cellId}
                 alive={this.state.cells[cellId - 1].alive}
                 id={'cell' + cellId}
-                onClick={this.handleClick} />
+                onClick={this.handleClick}
+          />
         );
       }
 

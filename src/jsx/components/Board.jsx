@@ -104,6 +104,35 @@ const Board = React.createClass({
 
     this.setState(cells);
   },
+  processCells: function() {
+    let boardRules = this.props.boardRules;
+    var cells = this.state;
+    delete cells.clicking;
+    var cellsToKill = [];
+    var cellsToSpawn = [];
+    for (let cellId = 1; cellId <= Object.keys(cells).length; cellId++) {
+      let cell = cells[cellId];
+
+      let neighbors = cell.neighbors;
+      var neighborsAlive = 0;
+      for (let j = 0; j < neighbors.length; j++) {
+        let neighborId = neighbors[j];
+        let neighbor = cells[neighborId];
+        if (neighbor.alive) neighborsAlive++;
+      }
+
+      if (boardRules.numsToDie.includes(neighborsAlive)) {
+        cellsToKill.push(cellId);
+      }
+      if (boardRules.numsToSurvive.includes(neighborsAlive)) {
+        // do nothing. good job on surviving!
+      }
+      if (boardRules.numsToSpawn.includes(neighborsAlive)) {
+        cellsToSpawn.push(cellId);
+      }
+    }
+    this.killCells(cellsToKill);
+    this.spawnCells(cellsToSpawn);
   },
   render: function() {
     let rowSize = this.props.boardSize[0];

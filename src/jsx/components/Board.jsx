@@ -86,6 +86,15 @@ const Board = React.createClass({
 
     this.setState(newState);
   },
+  spawnCells: function(cellIds) {
+    var cells = this.state;
+
+    cellIds.forEach(function(cellId) {
+      cells[cellId].alive = true;
+    });
+
+    this.setState(cells);
+  },
 
     cells[cellId - 1].alive = !cells[cellId - 1].alive;
 

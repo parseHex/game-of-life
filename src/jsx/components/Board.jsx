@@ -106,7 +106,7 @@ const Board = React.createClass({
   },
   handleHover: function(event) {
     let cellId = event.target.id.substr(4);
-    console.log('hover');
+    
     if (!this.state.clicking) return;
 
     let cell = this.state[cellId];

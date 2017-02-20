@@ -1,7 +1,10 @@
 const React = require('react');
 
+const starterCells = require('../starterCells.js');
+
 const Cell = require('./Cell.jsx');
 
+let animationFrame;
 let numCells;
 
 function overflow(number, min, max, resolver) {
@@ -40,6 +43,7 @@ const Board = React.createClass({
         alive: false,
         neighbors: []
       };
+      if (starterCells.includes(i)) cellState.alive = true;
 
       let topMiddle = overflow(i - rowSize, 1, numCells, numCells);
 
@@ -74,7 +78,6 @@ const Board = React.createClass({
 
       state[i] = (cellState);
     }
-    this.setupTimer();
 
     state.clicking = false;
     state.clickAdding = false;
@@ -88,21 +91,32 @@ const Board = React.createClass({
 
     this.killCells(Object.keys(cells));
   },
-  setupTimer: function() {
+  startTimer: function() {
     var timeCount = 0;
     var thisRef = this;
     var lastRun = new Date().getTime();
-    setInterval(function() {
+    function animationFrameFunction() {
       let thisRun = new Date().getTime();
       let time = thisRun - lastRun;
       timeCount += time;
       lastRun = thisRun;
 
-      if (thisRef.props.paused || timeCount < thisRef.props.speed) return;
-      timeCount = 0; // will run this time, reset back to zero
+      if (timeCount >= thisRef.props.speed) {
+        // console.log(timeCount);
+        timeCount = 0; // will run this time, reset count back to zero
 
-      thisRef.processCells();
-    }, 100);
+        thisRef.processCells();
+      }
+      animationFrame = requestAnimationFrame(animationFrameFunction);
+    }
+    animationFrame = requestAnimationFrame(animationFrameFunction);
+  },
+  stopTimer: function() {
+    if (animationFrame === null) return;
+
+    cancelAnimationFrame(animationFrame);
+
+    animationFrame = null;
   },
   handleMouseDown: function(event) {
     if ((event.button !== 0 && event.button !== 2) || this.state.clicking) return;
@@ -165,22 +179,32 @@ const Board = React.createClass({
     this.setState(newState);
   },
   spawnCells: function(cellIds) {
+    // console.time('spawning cells')
     var cells = this.state;
+    let cellsToChange = {};
 
     cellIds.forEach(function(cellId) {
-      cells[cellId].alive = true;
+      cellsToChange[ cellId ] = cells[ cellId ];
+      cellsToChange[ cellId ].alive = true;
     });
 
-    this.setState(cells);
+    this.setState(cellsToChange, function() {
+      // console.timeEnd('spawning cells')
+    });
   },
   killCells: function(cellIds) {
-    var cells = this.state;
+    // console.time('killing cells')
+    let cells = this.state;
+    let cellsToChange = {};
 
     cellIds.forEach(function(cellId) {
-      cells[cellId].alive = false;
+      cellsToChange[ cellId ] = cells[ cellId ];
+      cellsToChange[ cellId ].alive = false;
     });
 
-    this.setState(cells);
+    this.setState(cellsToChange, function() {
+      // console.timeEnd('killing cells')
+    });
   },
   processCells: function() {
     const boardRules = this.props.boardRules;
@@ -209,6 +233,7 @@ const Board = React.createClass({
     this.spawnCells(cellsToSpawn);
   },
   render: function() {
+    // console.time('rendering')
     let rowSize = this.props.boardSize[0];
     let columnSize = this.props.boardSize[1];
 
@@ -246,6 +271,12 @@ const Board = React.createClass({
         {rows}
       </div>
     );
+  },
+  componentDidMount: function() {
+    // console.timeEnd('rendering')
+  },
+  componentDidUpdate: function() {
+    // console.timeEnd('rendering')
   }
 });
 

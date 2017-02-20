@@ -7,6 +7,9 @@ const Cell = React.createClass({
     id: React.PropTypes.string,
     onHover: React.PropTypes.func
   },
+  shouldComponentUpdate: function(nextProps) {
+    return nextProps.alive !== this.props.alive;
+  },
   render: function() {
     return (
       <div className={'cell' + (this.props.alive ? ' alive' : '')}

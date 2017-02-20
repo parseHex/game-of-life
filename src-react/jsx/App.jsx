@@ -33,7 +33,9 @@ const App = React.createClass({
   },
   nextTick: function() {
     this._board.stopTimer();
+    console.time('testing setState')
     this.setState({paused: true}, function() {
+      console.timeEnd('testing setState');
       this._board.processCells();
     });
   },

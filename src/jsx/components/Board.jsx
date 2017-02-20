@@ -3,6 +3,7 @@ const React = require('react');
 const Cell = require('./Cell.jsx');
 
 var clicking = false;
+let numCells;
 
 function overflow(number, min, max, resolver) {
   if (number >= min && number <= max) return number;
@@ -32,7 +33,7 @@ const Board = React.createClass({
     let rowSize = this.props.boardSize[0];
     let columnSize = this.props.boardSize[1];
 
-    let numCells = rowSize * columnSize;
+    numCells = rowSize * columnSize;
     let state = {};
 
     for (let i = 1; i <= numCells; i++) {
@@ -183,31 +184,25 @@ const Board = React.createClass({
     this.setState(cells);
   },
   processCells: function() {
-    let boardRules = this.props.boardRules;
+    const boardRules = this.props.boardRules;
     let cells = this.state;
 
-    delete cells.clicking;
-    delete cells.clickAdding;
-
-    var cellsToKill = [];
-    var cellsToSpawn = [];
-    for (let cellId = 1; cellId <= Object.keys(cells).length; cellId++) {
-      var cell = cells[cellId];
-      let neighbors = cell.neighbors;
-      var neighborsAlive = 0;
-      for (let j = 0; j < neighbors.length; j++) {
-        let neighborId = neighbors[j];
-        let neighbor = cells[neighborId];
+    let cellsToKill = [];
+    let cellsToSpawn = [];
+    for (var cellId = 1; cellId <= numCells; cellId++) {
+      if (typeof cells[cellId] !== 'object') continue;
+      let cell = cells[cellId];
+      const neighbors = cell.neighbors;
+      let neighborsAlive = 0;
+      for (var j = 0; j < neighbors.length; j++) {
+        let neighbor = cells[ neighbors[j] ];
         if (neighbor.alive) neighborsAlive++;
       }
 
-      if (boardRules.numsToDie.includes(neighborsAlive)) {
+      if (cell.alive && boardRules.numsToDie.includes(neighborsAlive)) {
         cellsToKill.push(cellId);
       }
-      if (boardRules.numsToSurvive.includes(neighborsAlive)) {
-        // do nothing. good job on surviving!
-      }
-      if (boardRules.numsToSpawn.includes(neighborsAlive)) {
+      if (!cell.alive && boardRules.numsToSpawn.includes(neighborsAlive)) {
         cellsToSpawn.push(cellId);
       }
     }

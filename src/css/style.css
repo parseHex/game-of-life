@@ -19,3 +19,6 @@
   height: 15px;
   font-size: 0; /* removes whitespace between each cell */
 }
+.btn {
+  margin: auto 0.5em;
+}

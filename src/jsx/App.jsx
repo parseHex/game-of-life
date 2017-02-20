@@ -3,6 +3,7 @@ const ReactDOM = require('react-dom');
 
 const TimeControls = require('./components/TimeControls.jsx');
 const Board = require('./components/Board.jsx');
+const GameControls = require('./components/GameControls.jsx');
 
 const App = React.createClass({
   getInitialState: function() {
@@ -35,6 +36,11 @@ const App = React.createClass({
 
     this.setState({speed: this.state.speed - 100});
   },
+  clearBoard: function() {
+    this.setState({paused: true});
+
+    this._board.clear();
+  },
   render: function() {
     return (
       <div>
@@ -50,6 +56,9 @@ const App = React.createClass({
                speed={this.state.speed}
                paused={this.state.paused}
                ref={(child) => { this._board = child; }}
+        />
+      <GameControls clearBoard={this.clearBoard}
+                      paused={this.state.paused}
         />
       </div>
     );

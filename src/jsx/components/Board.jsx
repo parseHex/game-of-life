@@ -81,6 +81,13 @@ const Board = React.createClass({
 
     return state;
   },
+  clear: function() {
+    let cells = this.state;
+    delete cells.clicking;
+    delete cells.clickAdding;
+
+    this.killCells(Object.keys(cells));
+  },
   setupTimer: function() {
     var timeCount = 0;
     var thisRef = this;

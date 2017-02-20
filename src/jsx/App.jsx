@@ -20,16 +20,21 @@ const App = React.createClass({
   pausePlay: function() {
     this.setState({paused: !this.state.paused});
   },
+  nextTick: function() {
+    this._board.processCells();
+  },
   render: function() {
     return (
       <div>
         <TimeControls pausePlay={this.pausePlay}
                       paused={this.state.paused}
+                      nextTick={this.nextTick}
         />
         <Board boardSize={this.state.boardSize}
                boardRules={this.state.boardRules}
                speed={this.state.speed}
                paused={this.state.paused}
+               ref={(child) => { this._board = child; }}
         />
       </div>
     );

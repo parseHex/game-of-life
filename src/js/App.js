@@ -25,7 +25,8 @@ let state = {
   clickAdding: false,
   animationFrame: null
 };
-let cells = [];
+let cells = {};
+let numberOfCells = settings.boardSize[0] * settings.boardSize[1];
 
 // Cell Management
 function killCells(cellIds, noAnimate) {
@@ -37,7 +38,7 @@ function killCells(cellIds, noAnimate) {
     cell.alive = false;
   }
 
-  if (!noAnimate) animateCurrentTick(cells);
+  if (!noAnimate) animateCurrentTick(cells, numberOfCells);
 }
 function populateCells(cellIds, noAnimate) {
   for (var i = 0; i < cellIds.length; i++) {
@@ -48,7 +49,7 @@ function populateCells(cellIds, noAnimate) {
     cell.alive = true;
   }
 
-  if (!noAnimate) animateCurrentTick(cells);
+  if (!noAnimate) animateCurrentTick(cells, numberOfCells);
 }
 
 // Board Event Handlers
@@ -94,8 +95,8 @@ function handleBoardMouseDown(event) {
 
 // Time Controls
 function nextTick() {
-  processCells(cells, settings.rules, killCells, populateCells);
-  animateCurrentTick(cells);
+  processCells(cells, numberOfCells, settings.rules, killCells, populateCells);
+  animateCurrentTick(cells, numberOfCells);
 }
 function forward() {
   stop();
@@ -165,7 +166,7 @@ domReady(function() {
             handleBoardMouseUp,
             handleBoardMouseDown
   );
-  animateCurrentTick(cells);
+  animateCurrentTick(cells, numberOfCells);
 
   util.id('playButton').addEventListener('click', function() {
     if (state.paused) {

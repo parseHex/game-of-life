@@ -2,7 +2,7 @@ const starterCells = require('./starterCells.js');
 
 module.exports = function(size) {
   let numberOfCells = size[0] * size[1];
-  let cells = [];
+  let cells = {};
 
   for (let i = 1; i <= numberOfCells; i++) {
     let cell = {
@@ -43,7 +43,7 @@ module.exports = function(size) {
     cell.neighbors.push(bottomMiddle);
     cell.neighbors.push(bottomRight);
 
-    cells.push(cell);
+    cells[i] = cell;
   }
 
   return cells;

@@ -1,7 +1,7 @@
-module.exports = function(cells, rules, killCells, populateCells) {
+module.exports = function(cells, numberOfCells, rules, killCells, populateCells) {
   let cellsToKill = [];
   let cellsToPopulate = [];
-  for (var cellId = 0; cellId < cells.length; cellId++) {
+  for (var cellId = 1; cellId <= numberOfCells; cellId++) {
     if (typeof cells[ cellId ] !== 'object') continue;
 
     let cell = cells[ cellId ];
@@ -10,7 +10,7 @@ module.exports = function(cells, rules, killCells, populateCells) {
     let neighborsAlive = 0;
 
     for (var j = 0; j < neighbors.length; j++) {
-      let neighbor = cells[ neighbors[ j ] - 1 ];
+      let neighbor = cells[ neighbors[ j ] ];
       if (neighbor.alive) neighborsAlive++;
     }
 

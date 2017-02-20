@@ -21,6 +21,8 @@ const App = React.createClass({
     this.setState({paused: !this.state.paused});
   },
   nextTick: function() {
+    this.setState({paused: true});
+
     this._board.processCells();
   },
   render: function() {

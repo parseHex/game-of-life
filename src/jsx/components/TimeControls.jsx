@@ -24,7 +24,7 @@ const TimeControls = React.createClass({
           <button onClick={this.props.decreaseSpeed} className='btn btn-default' id='decreaseSpeed' title='Decrease Speed (make faster)'>
             -
           </button>
-          <input type='text' value={this.props.speed} className='form-control' id='gameSpeed' title='Game Speed' readOnly />
+          <input type='text' value={(this.props.speed / 1000) + 's'} className='form-control' id='gameSpeed' title='Game Speed' readOnly />
           <button onClick={this.props.increaseSpeed} className='btn btn-default' id='increaseSpeed' title='Increase Speed (make slower)'>
             +
           </button>

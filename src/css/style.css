@@ -19,7 +19,7 @@
   height: 15px;
   font-size: 0; /* removes whitespace between each cell */
 }
-.timeControlGroup {
+.gameControlGroup {
   display: inline;
   margin: auto 0.5em;
 }

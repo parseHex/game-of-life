@@ -12,7 +12,7 @@ const TimeControls = React.createClass({
   render: function() {
     return (
       <div className='form-inline'>
-        <div className='timeControlGroup'>
+        <div className='gameControlGroup'>
           <button onClick={this.props.pausePlay} className='btn btn-default'>
             {this.props.paused ? 'Play' : 'Pause'}
           </button>
@@ -20,7 +20,7 @@ const TimeControls = React.createClass({
             >
           </button>
         </div>
-        <div className='timeControlGroup'>
+        <div className='gameControlGroup'>
           <button onClick={this.props.decreaseSpeed} className='btn btn-default' id='decreaseSpeed' title='Decrease Speed (make faster)'>
             -
           </button>

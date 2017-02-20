@@ -29,4 +29,6 @@ module.exports = function(cells, boardSize, handleClick, handleMouseEnter, handl
   }
 
   boardElement.appendChild(boardFragment);
+  boardElement.addEventListener('mousedown', handleMouseDown);
+  boardElement.addEventListener('mouseup', handleMouseUp);
 };

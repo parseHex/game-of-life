@@ -70,9 +70,9 @@ function handleCellMouseEnter(event) {
   let cellId = +event.target.id.substr(1);
 
   if (state.clickAdding) {
-    populateCells(cellId);
+    populateCells([ cellId ]);
   } else {
-    killCells(cellId);
+    killCells([ cellId ]);
   }
 }
 function handleBoardMouseUp(event) {

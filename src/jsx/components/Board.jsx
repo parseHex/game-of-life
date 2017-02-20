@@ -77,6 +77,7 @@ const Board = React.createClass({
     this.setupTimer();
 
     state.clicking = false;
+    state.clickAdding = false;
 
     return state;
   },
@@ -95,23 +96,33 @@ const Board = React.createClass({
     }, 100);
   },
   handleMouseDown: function(event) {
-    if (event.button !== 0) return;
+    if ((event.button !== 0 && event.button !== 2) || this.state.clicking) return;
 
-    this.setState({clicking: true});
+    event.preventDefault();
+
+    this.setState({
+      clicking: true,
+      clickAdding: event.button === 0
+    });
   },
   handleMouseUp: function(event) {
-    if (event.button !== 0) return;
+    if ((event.button !== 0 && event.button !== 2) || !this.state.clicking) return;
 
-    this.setState({clicking: false});
+    event.preventDefault();
+
+    this.setState({
+      clicking: false,
+      clickAdding: false
+    });
   },
   handleHover: function(event) {
     let cellId = event.target.id.substr(4);
-    
+
     if (!this.state.clicking) return;
 
     let cell = this.state[cellId];
 
-    cell.alive = !cell.alive;
+    cell.alive = this.state.clickAdding;
 
     let newState = {};
     newState[cellId] = cell;
@@ -123,6 +134,21 @@ const Board = React.createClass({
     let cell = this.state[cellId];
 
     cell.alive = !cell.alive;
+
+    let newState = {};
+    newState[cellId] = cell;
+
+    this.setState(newState);
+  },
+  handleContextMenu: function(event) {
+    event.preventDefault();
+
+    let cellId = event.target.id.substr(4);
+    let cell = this.state[cellId];
+
+    if (!cell.alive) return;
+
+    cell.alive = false;
 
     let newState = {};
     newState[cellId] = cell;
@@ -149,13 +175,15 @@ const Board = React.createClass({
   },
   processCells: function() {
     let boardRules = this.props.boardRules;
-    var cells = this.state;
+    let cells = this.state;
+
     delete cells.clicking;
+    delete cells.clickAdding;
+
     var cellsToKill = [];
     var cellsToSpawn = [];
     for (let cellId = 1; cellId <= Object.keys(cells).length; cellId++) {
-      let cell = cells[cellId];
-
+      var cell = cells[cellId];
       let neighbors = cell.neighbors;
       var neighborsAlive = 0;
       for (let j = 0; j < neighbors.length; j++) {
@@ -208,7 +236,10 @@ const Board = React.createClass({
     }
 
     return (
-      <div onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp}>
+      <div onMouseDown={this.handleMouseDown}
+           onMouseUp={this.handleMouseUp}
+           onContextMenu={this.handleContextMenu}
+      >
         {rows}
       </div>
     );

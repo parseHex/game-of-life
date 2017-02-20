@@ -22,7 +22,8 @@ let settings = {
 let state = {
   paused: true,
   clicking: false,
-  clickAdding: false
+  clickAdding: false,
+  animationFrame: null
 };
 let cells = [];
 
@@ -105,12 +106,31 @@ function start() {
   util.id('playButton').textContent = 'Pause';
 
   state.paused = false;
+
+  let timeCount = 0;
+  let lastRun = new Date().getTime();
+  function animationFrameFunction() {
+    let thisRun = new Date().getTime();
+    let time = thisRun - lastRun;
+    timeCount += time;
+    lastRun = thisRun;
+
+    if (timeCount >= settings.speed) {
+      timeCount = 0; // will run this time, reset count back to zero
+
+      nextTick();
+    }
+    settings.animationFrame = requestAnimationFrame(animationFrameFunction);
+  }
+  settings.animationFrame = requestAnimationFrame(animationFrameFunction);
 }
 function stop() {
   if (state.paused) return;
   util.id('playButton').textContent = 'Play';
 
   state.paused = true;
+
+  cancelAnimationFrame(settings.animationFrame);
 }
 
 // Speed Modifiers

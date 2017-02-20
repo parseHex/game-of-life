@@ -7,9 +7,26 @@ const TimeControls = React.createClass({
     decreaseSpeed: React.PropTypes.func,
     increaseSpeed: React.PropTypes.func,
     paused: React.PropTypes.bool,
-    speed: React.PropTypes.number
+    speed: React.PropTypes.number,
+    speedSteps: React.PropTypes.array
   },
   render: function() {
+    let speedName = '';
+    let speedIndex = this.props.speedSteps.indexOf(this.props.speed);
+    switch (speedIndex) {
+      case 0: {
+        speedName = 'Slow';
+        break;
+      }
+      case 1: {
+        speedName = 'Normal';
+        break;
+      }
+      case 2: {
+        speedName = 'Fast';
+        break;
+      }
+    }
     return (
       <div className='form-inline'>
         <div className='gameControlGroup'>
@@ -21,11 +38,11 @@ const TimeControls = React.createClass({
           </button>
         </div>
         <div className='gameControlGroup'>
-          <button onClick={this.props.decreaseSpeed} className='btn btn-default' id='decreaseSpeed' title='Decrease Speed (make faster)'>
+          <button onClick={this.props.decreaseSpeed} className='btn btn-default' id='decreaseSpeed' title='Decrease Speed (make slower)'>
             -
           </button>
-          <input type='text' value={(this.props.speed / 1000) + 's'} className='form-control' id='gameSpeed' title='Game Speed' readOnly />
-          <button onClick={this.props.increaseSpeed} className='btn btn-default' id='increaseSpeed' title='Increase Speed (make slower)'>
+          <input type='text' value={speedName} className='form-control' id='gameSpeed' title='Game Speed' readOnly />
+          <button onClick={this.props.increaseSpeed} className='btn btn-default' id='increaseSpeed' title='Increase Speed (make faster)'>
             +
           </button>
         </div>

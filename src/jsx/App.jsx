@@ -15,28 +15,42 @@ const App = React.createClass({
         numsToDie: [0, 1, 4, 5, 6, 7, 8]
       },
       paused: true,
-      speed: 200
+      speed: 200,
+      speedSteps: [500, 200, 50]
     };
   },
   pausePlay: function() {
-    this.setState({paused: !this.state.paused});
+    this.setState(
+      {paused: !this.state.paused},
+      function() {
+        if (!this.state.paused) {
+          this._board.startTimer();
+        } else {
+          this._board.stopTimer();
+        }
+      }
+    );
   },
   nextTick: function() {
-    this.setState({paused: true});
-
-    this._board.processCells();
+    this._board.stopTimer();
+    this.setState({paused: true}, function() {
+      this._board.processCells();
+    });
   },
   increaseSpeed: function() {
-    if (this.state.speed + 100 > 5000) return;
+    let speedIndex = this.state.speedSteps.indexOf(this.state.speed);
+    if (typeof this.state.speedSteps[speedIndex + 1] === 'undefined') return;
 
-    this.setState({speed: this.state.speed + 100});
+    this.setState({speed: this.state.speedSteps[speedIndex + 1]});
   },
   decreaseSpeed: function() {
-    if (this.state.speed - 100 < 100) return;
+    let speedIndex = this.state.speedSteps.indexOf(this.state.speed);
+    if (typeof this.state.speedSteps[speedIndex - 1] === 'undefined') return;
 
-    this.setState({speed: this.state.speed - 100});
+    this.setState({speed: this.state.speedSteps[speedIndex - 1]});
   },
   clearBoard: function() {
+    this._board.stopTimer();
     this.setState({paused: true});
 
     this._board.clear();
@@ -47,6 +61,7 @@ const App = React.createClass({
         <TimeControls pausePlay={this.pausePlay}
                       paused={this.state.paused}
                       speed={this.state.speed}
+                      speedSteps={this.state.speedSteps}
                       nextTick={this.nextTick}
                       increaseSpeed={this.increaseSpeed}
                       decreaseSpeed={this.decreaseSpeed}

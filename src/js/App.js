@@ -7,7 +7,8 @@ const util = require('./utility.js');
 const SpeedSteps = [
   500, // Slow
   200, // Normal
-  50   // Fast
+  50,  // Fast
+  10   // Very Fast
 ];
 
 let settings = {

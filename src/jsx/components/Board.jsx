@@ -2,7 +2,6 @@ const React = require('react');
 
 const Cell = require('./Cell.jsx');
 
-var clicking = false;
 let numCells;
 
 function overflow(number, min, max, resolver) {

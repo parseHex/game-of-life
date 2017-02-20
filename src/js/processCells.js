@@ -22,5 +22,5 @@ module.exports = function(cells, rules, killCells, populateCells) {
     }
   }
   killCells(cellsToKill, true);
-  populateCells(cellsToPopulate);
+  populateCells(cellsToPopulate, true);
 };

@@ -22,3 +22,6 @@
 .btn {
   margin: auto 0.5em;
 }
+#gameSpeed {
+  width: 75px;
+}

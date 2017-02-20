@@ -25,12 +25,25 @@ const App = React.createClass({
 
     this._board.processCells();
   },
+  increaseSpeed: function() {
+    if (this.state.speed + 100 > 5000) return;
+
+    this.setState({speed: this.state.speed + 100});
+  },
+  decreaseSpeed: function() {
+    if (this.state.speed - 100 < 100) return;
+
+    this.setState({speed: this.state.speed - 100});
+  },
   render: function() {
     return (
       <div>
         <TimeControls pausePlay={this.pausePlay}
                       paused={this.state.paused}
+                      speed={this.state.speed}
                       nextTick={this.nextTick}
+                      increaseSpeed={this.increaseSpeed}
+                      decreaseSpeed={this.decreaseSpeed}
         />
         <Board boardSize={this.state.boardSize}
                boardRules={this.state.boardRules}

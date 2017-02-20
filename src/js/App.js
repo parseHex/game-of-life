@@ -157,4 +157,5 @@ domReady(function() {
   util.id('forwardButton').addEventListener('click', forward);
 
   util.id('decreaseSpeed').addEventListener('click', decreaseSpeed);
+  util.id('increaseSpeed').addEventListener('click', increaseSpeed);
 });

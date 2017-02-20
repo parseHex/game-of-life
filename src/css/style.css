@@ -6,6 +6,12 @@
   box-sizing: border-box;
   background-color: lightgray;
 }
+.cellRow .cell:not(:first-of-type) {
+  border-left: 0;
+}
+.cellRow:not(:last-of-type) .cell {
+  border-bottom: 0;
+}
 .cell.alive {
   background-color: yellow;
 }

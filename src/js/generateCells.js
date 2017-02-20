@@ -1,40 +1,39 @@
 const starterCells = require('./starterCells.js');
 
 module.exports = function(size) {
-  let rowSize = size[0];
-  let columnSize = size[1];
-
-  let numberOfCells = rowSize * columnSize;
+  console.time('generating cells');
+  let numberOfCells = size[0] * size[1];
   let cells = [];
 
   for (let i = 1; i <= numberOfCells; i++) {
     let cell = {
       alive: false,
+      lastAlive: false,
       neighbors: []
     };
     if (starterCells.includes(i)) cell.alive = true;
 
-    let topMiddle = overflow(i - rowSize, 1, numCells, numCells);
+    let topMiddle = overflow(i - size[0], 1, numberOfCells, numberOfCells);
 
-    let topMaxSize = rowMax(topMiddle, rowSize);
-    let topMinSize = topMaxSize - (rowSize - 1);
+    let topMaxSize = rowMax(topMiddle, size[0]);
+    let topMinSize = topMaxSize - (size[0] - 1);
 
-    let topLeft = overflow(topMiddle - 1, topMinSize, topMaxSize, rowSize);
-    let topRight = overflow(topMiddle + 1, topMinSize, topMaxSize, rowSize);
+    let topLeft = overflow(topMiddle - 1, topMinSize, topMaxSize, size[0]);
+    let topRight = overflow(topMiddle + 1, topMinSize, topMaxSize, size[0]);
 
-    let thisMaxSize = rowMax(i, rowSize);
-    let thisMinSize = thisMaxSize - (rowSize - 1);
+    let thisMaxSize = rowMax(i, size[0]);
+    let thisMinSize = thisMaxSize - (size[0] - 1);
 
-    let left = overflow(i - 1, thisMinSize, thisMaxSize, rowSize);
-    let right = overflow(i + 1, thisMinSize, thisMaxSize, rowSize);
+    let left = overflow(i - 1, thisMinSize, thisMaxSize, size[0]);
+    let right = overflow(i + 1, thisMinSize, thisMaxSize, size[0]);
 
-    let bottomMiddle = overflow(i + rowSize, 1, numCells, numCells);
+    let bottomMiddle = overflow(i + size[0], 1, numberOfCells, numberOfCells);
 
-    let bottomMaxSize = rowMax(bottomMiddle, rowSize);
-    let bottomMinSize = bottomMaxSize - (rowSize - 1);
+    let bottomMaxSize = rowMax(bottomMiddle, size[0]);
+    let bottomMinSize = bottomMaxSize - (size[0] - 1);
 
-    let bottomLeft = overflow(bottomMiddle - 1, bottomMinSize, bottomMaxSize, rowSize);
-    let bottomRight = overflow(bottomMiddle + 1, bottomMinSize, bottomMaxSize, rowSize);
+    let bottomLeft = overflow(bottomMiddle - 1, bottomMinSize, bottomMaxSize, size[0]);
+    let bottomRight = overflow(bottomMiddle + 1, bottomMinSize, bottomMaxSize, size[0]);
 
     cell.neighbors.push(topLeft);
     cell.neighbors.push(topMiddle);
@@ -47,6 +46,7 @@ module.exports = function(size) {
 
     cells.push(cell);
   }
+  console.timeEnd('generating cells');
 
   return cells;
 };

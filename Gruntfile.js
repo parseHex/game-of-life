@@ -4,13 +4,13 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         options: {
-           transform: [['babelify', {presets: ['es2015', 'react']}]],
+           transform: [['babelify', {presets: ['es2015']}]],
            watch: true,
            browserifyOptions: {
              debug: true
           }
         },
-        src: 'src/jsx/App.jsx',
+        src: 'src/js/App.js',
         dest: 'build/js/min.js'
       }
     },

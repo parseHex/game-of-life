@@ -27,3 +27,6 @@
 #gameSpeed {
   width: 75px;
 }
+#board {
+  margin: 1em;
+}

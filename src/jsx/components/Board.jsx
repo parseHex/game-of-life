@@ -84,10 +84,12 @@ const Board = React.createClass({
   setupTimer: function() {
     var timeCount = 0;
     var thisRef = this;
-    var start = new Date().getTime()
+    var lastRun = new Date().getTime();
     setInterval(function() {
-      let time = new Date().getTime() - start;
+      let thisRun = new Date().getTime();
+      let time = thisRun - lastRun;
       timeCount += time;
+      lastRun = thisRun;
 
       if (thisRef.props.paused || timeCount < thisRef.props.speed) return;
       timeCount = 0; // will run this time, reset back to zero

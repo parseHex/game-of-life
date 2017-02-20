@@ -19,7 +19,8 @@
   height: 15px;
   font-size: 0; /* removes whitespace between each cell */
 }
-.btn {
+.timeControlGroup {
+  display: inline;
   margin: auto 0.5em;
 }
 #gameSpeed {

@@ -120,7 +120,7 @@ function decreaseSpeed() {
 
   settings.speed = SpeedSteps[ currentSpeedIndex - 1 ];
 
-  util.id('gameSpeed').textContent = util.getSpeedName(settings.speed, SpeedSteps);
+  util.id('gameSpeed').value = util.getSpeedName(settings.speed, SpeedSteps);
 }
 function increaseSpeed() {
   let currentSpeedIndex = SpeedSteps.indexOf(settings.speed);
@@ -128,7 +128,7 @@ function increaseSpeed() {
 
   settings.speed = SpeedSteps[ currentSpeedIndex + 1 ];
 
-  util.id('gameSpeed').textContent = util.getSpeedName(settings.speed, SpeedSteps);
+  util.id('gameSpeed').value = util.getSpeedName(settings.speed, SpeedSteps);
 }
 
 // http://beeker.io/jquery-document-ready-equivalent-vanilla-javascript

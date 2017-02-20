@@ -1,7 +1,6 @@
 const util = require('./utility.js');
 
 module.exports = function(cells) {
-  console.time('animating tick');
   for (var i = 0; i < cells.length; i++) {
     let cell = cells[i];
 
@@ -9,5 +8,4 @@ module.exports = function(cells) {
 
     util.id('c' + i).className = cell.alive ? 'cell alive' : 'cell';
   }
-  console.timeEnd('animating tick');
 };

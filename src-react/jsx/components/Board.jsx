@@ -102,7 +102,6 @@ const Board = React.createClass({
       lastRun = thisRun;
 
       if (timeCount >= thisRef.props.speed) {
-        // console.log(timeCount);
         timeCount = 0; // will run this time, reset count back to zero
 
         thisRef.processCells();

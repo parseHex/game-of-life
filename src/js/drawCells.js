@@ -2,7 +2,6 @@ const util = require('./utility.js');
 const boardElement = util.id('board');
 
 module.exports = function(cells, boardSize, handleClick, handleMouseEnter, handleMouseUp, handleMouseDown) {
-  console.time('drawing cells')
   let rowSize = boardSize[0];
   let columnSize = boardSize[1];
 
@@ -30,5 +29,4 @@ module.exports = function(cells, boardSize, handleClick, handleMouseEnter, handl
   }
 
   boardElement.appendChild(boardFragment);
-  console.timeEnd('drawing cells')
 };

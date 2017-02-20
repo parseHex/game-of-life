@@ -1,5 +1,4 @@
 module.exports = function(cells, rules, killCells, populateCells) {
-  console.time('processing cells');
   let cellsToKill = [];
   let cellsToPopulate = [];
   for (var cellId = 0; cellId < cells.length; cellId++) {
@@ -22,7 +21,6 @@ module.exports = function(cells, rules, killCells, populateCells) {
       cellsToPopulate.push(cellId);
     }
   }
-  console.timeEnd('processing cells');
   killCells(cellsToKill, true);
   populateCells(cellsToPopulate);
 };

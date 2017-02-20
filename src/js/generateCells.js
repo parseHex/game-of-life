@@ -1,7 +1,6 @@
 const starterCells = require('./starterCells.js');
 
 module.exports = function(size) {
-  console.time('generating cells');
   let numberOfCells = size[0] * size[1];
   let cells = [];
 
@@ -46,7 +45,6 @@ module.exports = function(size) {
 
     cells.push(cell);
   }
-  console.timeEnd('generating cells');
 
   return cells;
 };

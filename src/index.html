@@ -9,7 +9,24 @@
   </head>
   <body>
     <div class='container-fluid'>
-      <div id='app'></div>
+      <div class='col-xs-12 col-md-10 col-md-offset-1 text-center'>
+        <h1>Game of Life</h1>
+        <div id='app'></div>
+        <div class='text-left'>
+          <h2>Controls</h2>
+          <ul>
+            <li><strong>Left-click</strong>: Make a cell (or multiple if dragging) alive</li>
+            <li><strong>Right-click</strong>: Kill a cell (or multiple if dragging)</li>
+          </ul>
+          <h2>Game Rules</h2>
+          <ul>
+            <li>Cells with <strong>0 or 1 alive neighbors die</strong>.</li>
+            <li>Cells with <strong>2 or 3 alive neighbors survive</strong>.</li>
+            <li>Cells with <strong>3 neighbors become alive</strong>.</li>
+            <li>Cells with <strong>4, 5, 6, 7, or 8 neighbors die</strong>.</li>
+          </ul>
+        </div>
+      </div>
     </div>
     <script src='js/min.js'></script>
   </body>

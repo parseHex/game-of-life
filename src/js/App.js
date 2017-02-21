@@ -8,7 +8,8 @@ const SpeedSteps = [
   500, // Slow
   200, // Normal
   50,  // Fast
-  10   // Very Fast
+  10,  // Very Fast
+  5    // Lightning
 ];
 
 let settings = {

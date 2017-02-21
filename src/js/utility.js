@@ -17,6 +17,9 @@ module.exports = {
       case 3: {
         return 'Very Fast';
       }
+      case 4: {
+        return 'Lightning';
+      }
     }
   }
 };

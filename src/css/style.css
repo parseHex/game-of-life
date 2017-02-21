@@ -29,4 +29,5 @@
 }
 #board {
   margin: 1em;
+  display: inline-block;
 }

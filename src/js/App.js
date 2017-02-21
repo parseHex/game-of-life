@@ -56,16 +56,18 @@ function populateCells(cellIds, noAnimate) {
 
 // Board Event Handlers
 function handleCellClick(event) {
+  event.preventDefault();
+
   let cellId = +event.target.id.substr(1);
   let alive = !cells[ cellId ].alive;
 
-  if (alive) {
-    populateCells( [cellId] );
-  } else {
-    killCells( [cellId] );
-  }
+  if (event.button === 2) return killCells( [ cellId ] );
 
-  event.preventDefault();
+  if (alive) {
+    populateCells( [ cellId ] );
+  } else {
+    killCells( [ cellId ] );
+  }
 }
 function handleCellMouseEnter(event) {
   if (!state.clicking) return;
@@ -73,9 +75,9 @@ function handleCellMouseEnter(event) {
   let cellId = +event.target.id.substr(1);
 
   if (state.clickAdding) {
-    populateCells([ cellId ]);
+    populateCells( [ cellId ] );
   } else {
-    killCells([ cellId ]);
+    killCells( [ cellId ] );
   }
 }
 function handleBoardMouseUp(event) {

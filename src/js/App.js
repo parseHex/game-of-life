@@ -34,7 +34,7 @@ let numberOfCells = settings.boardSize[0] * settings.boardSize[1];
 function killCells(cellIds, noAnimate) {
   for (var i = 0; i < cellIds.length; i++) {
     let cell = cells[ cellIds[ i ] ];
-    if (!cell.alive) return;
+    if (!cell.alive) continue;
 
     cell.lastAlive = true;
     cell.alive = false;
@@ -45,7 +45,7 @@ function killCells(cellIds, noAnimate) {
 function populateCells(cellIds, noAnimate) {
   for (var i = 0; i < cellIds.length; i++) {
     let cell = cells[ cellIds [ i ] ];
-    if (cell.alive) return;
+    if (cell.alive) continue;
 
     cell.lastAlive = false;
     cell.alive = true;
@@ -137,6 +137,13 @@ function stop() {
 
   cancelAnimationFrame(settings.animationFrame);
 }
+function clear() {
+  stop();
+
+  let cellIds = Object.keys(cells);
+
+  killCells(cellIds);
+}
 
 // Speed Modifiers
 function decreaseSpeed() {
@@ -183,4 +190,6 @@ domReady(function() {
 
   util.id('decreaseSpeed').addEventListener('click', decreaseSpeed);
   util.id('increaseSpeed').addEventListener('click', increaseSpeed);
+
+  util.id('clearButton').addEventListener('click', clear);
 });

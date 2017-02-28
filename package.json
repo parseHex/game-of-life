@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "grunt",
-    "start": "sudo grunt dev"
+    "start": "grunt dev"
   },
   "author": "",
   "license": "ISC",
@@ -17,10 +17,7 @@
     "grunt-browserify": "^5.0.0",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^2.1.0",
     "grunt-contrib-watch": "^1.0.0"
-  },
-  "dependencies": {
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2"
   }
 }

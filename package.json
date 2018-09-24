@@ -6,7 +6,8 @@
 		"copy": "copy *.html build/ && copy css/*.css build/",
 		"build": "rimraf build && npm run copy && webpack --mode production",
 		"start": "webpack -w",
-		"server": "http-server ./build -c-1"
+		"server": "http-server ./build -c-1",
+		"deploy": "npm run build && gh-pages -d build"
 	},
 	"author": "",
 	"license": "ISC",

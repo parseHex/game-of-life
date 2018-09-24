@@ -163,12 +163,7 @@ function increaseSpeed() {
 	util.id('gameSpeed').value = util.getSpeedName(settings.speed, SpeedSteps);
 }
 
-// http://beeker.io/jquery-document-ready-equivalent-vanilla-javascript
-var domReady = function (callback) {
-	document.readyState === 'interactive' || document.readyState === 'complete' ? callback() : document.addEventListener('DOMContentLoaded', callback);
-};
-
-domReady(function () {
+util.domReady(function () {
 	cells = generateCells(settings.boardSize);
 	drawCells(cells,
 		settings.boardSize,

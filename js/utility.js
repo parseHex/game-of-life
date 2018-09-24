@@ -21,5 +21,13 @@ module.exports = {
 				return 'Lightning';
 			}
 		}
-	}
+	},
+	domReady: function (callback) {
+		// http://beeker.io/jquery-document-ready-equivalent-vanilla-javascript
+		if (document.readyState === 'interactive' || document.readyState === 'complete') {
+			callback();
+		} else {
+			document.addEventListener('DOMContentLoaded', callback);
+		}
+	},
 };

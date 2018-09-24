@@ -1,65 +1,65 @@
 <!doctype html>
 <html lang='en'>
-  <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width,initial-scale=1'>
-    <title>Game of Life</title>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
-    <link rel='stylesheet' type='text/css' href='./css/style.css'>
-  </head>
-  <body>
-    <div class='container-fluid'>
-      <div class='col-xs-12 col-md-10 col-md-offset-1 text-center'>
-        <h1>Game of Life</h1>
-        <div id='app'>
-          <div class='form-inline'>
-            <div class='gameControlGroup'>
-              <button class='btn btn-default' id='playButton'>
-                Play
-              </button>
-              <button class='btn btn-default' id='forwardButton' title='Step Forward'>
-                >
-              </button>
-            </div>
-            <div class='gameControlGroup'>
-              <button class='btn btn-default' id='decreaseSpeed' title='Decrease Speed (make slower)'>
-                -
-              </button>
-              <input type='text' value='Normal' class='form-control text-center' id='gameSpeed' title='Game Speed' readOnly />
-              <button class='btn btn-default' id='increaseSpeed' title='Increase Speed (make faster)'>
-                +
-              </button>
-            </div>
-          </div>
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+	<title>Game of Life</title>
+	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
+	<link rel='stylesheet' type='text/css' href='./css/style.css'>
+</head>
+<body>
+	<div class='container-fluid'>
+		<div class='col-xs-12 col-md-10 col-md-offset-1 text-center'>
+			<h1>Game of Life</h1>
+			<div id='app'>
+				<div class='form-inline'>
+					<div class='gameControlGroup'>
+						<button class='btn btn-default' id='playButton'>
+							Play
+						</button>
+						<button class='btn btn-default' id='forwardButton' title='Step Forward'>
+							>
+						</button>
+					</div>
+					<div class='gameControlGroup'>
+						<button class='btn btn-default' id='decreaseSpeed' title='Decrease Speed (make slower)'>
+							-
+						</button>
+						<input type='text' value='Normal' class='form-control text-center' id='gameSpeed' title='Game Speed' readOnly />
+						<button class='btn btn-default' id='increaseSpeed' title='Increase Speed (make faster)'>
+							+
+						</button>
+					</div>
+				</div>
 
-          <div id='board'></div>
+				<div id='board'></div>
 
-          <div class='form-inline'>
-            <div class='gameControlGroup'>
-              <button class='btn btn-default' id='clearButton'>
-                Clear
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class='text-left'>
-          <h2>Controls</h2>
-          <ul>
-            <li><strong>Left-click</strong>: Toggle a cell alive or dead.</li>
-            <li><strong>Right-click</strong>: Kill a cell.</li>
-            <li><strong>Left-drag</strong>: Populate multiple cells.</li>
-            <li><strong>Right-drag</strong>: Kill multiple cells.</li>
-          </ul>
-          <h2>Game Rules</h2>
-          <ul>
-            <li>Cells with <strong>0 or 1 alive neighbors die</strong>.</li>
-            <li>Cells with <strong>2 or 3 alive neighbors survive</strong>.</li>
-            <li>Cells with <strong>3 neighbors populate</strong>.</li>
-            <li>Cells with <strong>4, 5, 6, 7, or 8 neighbors die</strong>.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <script src='js/bundle.js'></script>
-  </body>
+				<div class='form-inline'>
+					<div class='gameControlGroup'>
+						<button class='btn btn-default' id='clearButton'>
+							Clear
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class='text-left'>
+				<h2>Controls</h2>
+				<ul>
+					<li><strong>Left-click</strong>: Toggle a cell alive or dead.</li>
+					<li><strong>Right-click</strong>: Kill a cell.</li>
+					<li><strong>Left-drag</strong>: Populate multiple cells.</li>
+					<li><strong>Right-drag</strong>: Kill multiple cells.</li>
+				</ul>
+				<h2>Game Rules</h2>
+				<ul>
+					<li>Cells with <strong>0 or 1 alive neighbors die</strong>.</li>
+					<li>Cells with <strong>2 or 3 alive neighbors survive</strong>.</li>
+					<li>Cells with <strong>3 neighbors populate</strong>.</li>
+					<li>Cells with <strong>4, 5, 6, 7, or 8 neighbors die</strong>.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script src='js/bundle.js'></script>
+</body>
 </html>

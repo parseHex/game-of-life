@@ -52,8 +52,9 @@ module.exports = function (size) {
 function overflow(number, min, max, resolver) {
 	if (number >= min && number <= max) return number;
 
-	if (number < min) return number + resolver;
-	if (number > max) return number - resolver;
+	// recursively overflow to handle number being multiple times the value of resolver
+	if (number < min) return overflow(number + resolver, min, max, resolver);
+	if (number > max) return overflow(number - resolver, min, max, resolver);
 }
 
 function rowMax(cellId, rowSize) {

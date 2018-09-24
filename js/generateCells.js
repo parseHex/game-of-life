@@ -1,6 +1,6 @@
-const starterCells = require('./starterCells.js');
+import starterCells from './starterCells';
 
-module.exports = function (size) {
+export default function (size) {
 	let numberOfCells = size[0] * size[1];
 	let cells = {};
 
@@ -47,7 +47,7 @@ module.exports = function (size) {
 	}
 
 	return cells;
-};
+}
 
 function overflow(number, min, max, resolver) {
 	if (number >= min && number <= max) return number;

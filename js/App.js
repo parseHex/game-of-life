@@ -1,8 +1,8 @@
-const generateCells = require('./generateCells.js');
-const drawCells = require('./drawCells.js');
-const animateCurrentTick = require('./animateCurrentTick.js');
-const processCells = require('./processCells.js');
-const util = require('./utility.js');
+import generateCells from './generateCells';
+import drawCells from './drawCells';
+import animateCurrentTick from './animateCurrentTick';
+import processCells from './processCells';
+import * as util from './utility';
 
 const SpeedSteps = [
 	500, // Slow

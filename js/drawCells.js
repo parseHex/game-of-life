@@ -1,7 +1,8 @@
-const util = require('./utility.js');
+import * as util from './utility';
+
 const boardElement = util.id('board');
 
-module.exports = function (cells, boardSize, handleClick, handleMouseEnter, handleMouseUp, handleMouseDown) {
+export default function (cells, boardSize, handleClick, handleMouseEnter, handleMouseUp, handleMouseDown) {
 	let rowSize = boardSize[0];
 	let columnSize = boardSize[1];
 
@@ -31,4 +32,4 @@ module.exports = function (cells, boardSize, handleClick, handleMouseEnter, hand
 	boardElement.appendChild(boardFragment);
 	boardElement.addEventListener('mousedown', handleMouseDown);
 	boardElement.addEventListener('mouseup', handleMouseUp);
-};
+}

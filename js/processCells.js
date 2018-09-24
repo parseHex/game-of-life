@@ -1,4 +1,4 @@
-module.exports = function (cells, numberOfCells, rules, killCells, populateCells) {
+export default function (cells, numberOfCells, rules, killCells, populateCells) {
 	let cellsToKill = [];
 	let cellsToPopulate = [];
 	for (var cellId = 1; cellId <= numberOfCells; cellId++) {
@@ -23,4 +23,4 @@ module.exports = function (cells, numberOfCells, rules, killCells, populateCells
 	}
 	killCells(cellsToKill, true);
 	populateCells(cellsToPopulate, true);
-};
+}

@@ -9,7 +9,7 @@ const SpeedSteps = [
 	200, // Normal
 	50,  // Fast
 	10,  // Very Fast
-	5    // Lightning
+	5,   // Lightning
 ];
 
 let settings = {
@@ -17,15 +17,15 @@ let settings = {
 	rules: {
 		numsToPopulate: [3],
 		numsToSurvive: [2, 3],
-		numsToDie: [0, 1, 4, 5, 6, 7, 8]
+		numsToDie: [0, 1, 4, 5, 6, 7, 8],
 	},
-	speed: 200
+	speed: 200,
 };
 let state = {
 	paused: true,
 	clicking: false,
 	clickAdding: false,
-	animationFrame: null
+	animationFrame: null,
 };
 let cells = {};
 let numberOfCells = settings.boardSize[0] * settings.boardSize[1];
